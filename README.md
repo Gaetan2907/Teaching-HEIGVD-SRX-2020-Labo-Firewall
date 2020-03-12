@@ -390,7 +390,9 @@ Commandes iptables :
 ---
 
 ```bash
-LIVRABLE : Commandes iptables
+iptables -A OUTPUT -p icmp --icmp-type 8 -j ACCEPT -d 192.168.200.0/24 -s 192.168.100.3/24
+
+iptables _A INPUT -p icmp --icmp-type 8 -j ACCEPT -d 192.168.100.0/24 -s 192.168.200.3/24
 ```
 ---
 
