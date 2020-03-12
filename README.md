@@ -226,7 +226,7 @@ ping 192.168.200.3
 ```
 ---
 
-**LIVRABLE : capture d'écran de votre tentative de ping.**  
+<img src="/home/kurisukun/.config/Typora/typora-user-images/image-20200312144837254.png" alt="image-20200312144837254" style="zoom: 200%;" />
 
 ---
 
@@ -259,7 +259,7 @@ PermitRootLogin yes
 
 et enregistrer et fermer le fichier en question.
 
-**ATTENTION :** Il faudra aussi définir un mot de passe pour pour les connexions ssh. Pour cela, utiliser la commande `passwd`.
+**ATTENTION :** Il faudra aussi définir un mot de passe pour pour les connexions ssh. Pour cela, utiliser la commande `passwd`. **root**
 
 Toujours dans un terminal de votre serveur, taper les commandes suivantes :
 
@@ -281,7 +281,7 @@ ping 192.168.100.3
 
 ---
 
-**LIVRABLE : capture d'écran de votre nouvelle tentative de ping.**
+<img src="/home/kurisukun/.config/Typora/typora-user-images/image-20200312145532750.png" alt="image-20200312145532750" style="zoom:130%;" />
 
 ---
 
@@ -295,7 +295,7 @@ ping 8.8.8.8
 
 ---
 
-**LIVRABLE : capture d'écran de votre ping vers l'Internet.**
+<img src="/home/kurisukun/.config/Typora/typora-user-images/image-20200312145712098.png" alt="image-20200312145712098" style="zoom:150%;" />
 
 ---
 
@@ -403,7 +403,7 @@ LIVRABLE : Commandes iptables
 
 ```bash
 ping 8.8.8.8
-``` 	            
+```
 Faire une capture du ping.
 
 ---
@@ -468,7 +468,6 @@ LIVRABLE : Commandes iptables
   <li>Tester en réitérant la commande ping sur le serveur de test (Google ou autre) : 
   </li>                                  
 </ol>
-
 ---
 
 **LIVRABLE : capture d'écran de votre ping.**
@@ -479,7 +478,6 @@ LIVRABLE : Commandes iptables
   <li>Remarques (sur le message du premier ping)? 
   </li>                                  
 </ol>
-
 ---
 **Réponse**
 
@@ -523,7 +521,6 @@ LIVRABLE : Commandes iptables
   <li>Tester l’accès à ce serveur depuis le LAN utilisant utilisant wget (ne pas oublier les captures d'écran). 
   </li>                                  
 </ol>
-
 ---
 
 **LIVRABLE : capture d'écran.**
@@ -564,7 +561,6 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
   <li>Expliquer l'utilité de **ssh** sur un serveur. 
   </li>                                  
 </ol>
-
 ---
 **Réponse**
 
@@ -593,7 +589,6 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
   <li>Insérer la capture d’écran avec toutes vos règles iptables
   </li>                                  
 </ol>
-
 ---
 
 **LIVRABLE : capture d'écran avec toutes vos règles.**
