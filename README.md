@@ -390,9 +390,12 @@ Commandes iptables :
 ---
 
 ```bash
-iptables -A OUTPUT -p icmp --icmp-type 8 -j ACCEPT -d 192.168.200.0/24 -s 192.168.100.3/24
-
-iptables _A INPUT -p icmp --icmp-type 8 -j ACCEPT -d 192.168.100.0/24 -s 192.168.200.3/24
+iptables -A FORWARD -p icmp --icmp-type 8 -s 192.168.100.0/24 -d 192.168.200.0/24 -j ACCEPT 
+iptables -A FORWARD -p icmp --icmp-type 0 -s 192.168.200.0/24 -d 192.168.100.0/24 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type 8 -s 192.168.100.0/24 -o eth0  -j ACCEPT 
+iptables -A FORWARD -p icmp --icmp-type 0 -i eth0 -d 192.168.100.0/24 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type 8 -s 192.168.200.0/24 -d 192.168.100.0/24 -j ACCEPT 
+iptables -A FORWARD -p icmp --icmp-type 0 -s 192.168.100.0/24 -d 192.168.200.0/24 -j ACCEPT
 ```
 ---
 
@@ -409,7 +412,7 @@ ping 8.8.8.8
 Faire une capture du ping.
 
 ---
-**LIVRABLE : capture d'écran de votre ping vers l'Internet.**
+<img src="/home/kurisukun/.config/Typora/typora-user-images/image-20200313151941547.png" alt="image-20200313151941547" style="zoom:150%;" />
 
 ---
 
