@@ -422,20 +422,20 @@ Faire une capture du ping.
 </ol>
 
 
-| De Client\_in\_LAN à | OK/KO | Commentaires et explications    |
-| :------------------- | :---: | :------------------------------ |
-| Interface DMZ du FW  |  OK   | On a créé la règle précédemment |
-| Interface LAN du FW  |  KO   |                                 |
-| Client LAN           |       |                                 |
-| Serveur WAN          |       |                                 |
+| De Client\_in\_LAN à | OK/KO | Commentaires et explications                             |
+| :------------------- | :---: | :------------------------------------------------------- |
+| Interface DMZ du FW  |  KO   | Les INPUT du firewall sont en DROP par défaut            |
+| Interface LAN du FW  |  KO   | Les INPUT du firewall sont en DROP par défaut            |
+| Client LAN           |  OK   | Les règles par défaut du LAN sont en ACCEPT              |
+| Serveur WAN          |  OK   | On a définit une règle pour accepter les ping sur le WAN |
 
 
-| De Server\_in\_DMZ à | OK/KO | Commentaires et explications |
-| :---                 | :---: | :---                         |
-| Interface DMZ du FW  |       |                              |
-| Interface LAN du FW  |       |                              |
-| Serveur DMZ          |       |                              |
-| Serveur WAN          |       |                              |
+| De Server\_in\_DMZ à | OK/KO | Commentaires et explications                        |
+| :------------------- | :---: | :-------------------------------------------------- |
+| Interface DMZ du FW  |  KO   | Les INPUT du firewall sont en DROP par défaut       |
+| Interface LAN du FW  |  KO   | Les INPUT du firewall sont en DROP par défaut       |
+| Serveur DMZ          |  OK   | Les règles par défaut de la DMZ sont en ACCEPT      |
+| Serveur WAN          |  KO   | On a pas définit de règle pour le ping de DMZ à WAN |
 
 
 ## Règles pour le protocole DNS
@@ -453,7 +453,7 @@ ping www.google.com
 
 ---
 
-**LIVRABLE : capture d'écran de votre ping.**
+![DNSping](img/DNSping.png)
 
 ---
 
@@ -464,7 +464,10 @@ Commandes iptables :
 ---
 
 ```bash
-LIVRABLE : Commandes iptables
+iptables -A FORWARD -p tcp --dport 53 -j ACCEPT
+iptables -A FORWARD -p udp --dport 53 -j ACCEPT
+iptables -A FORWARD -p udp --sport 53 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 53 -j ACCEPT
 ```
 
 ---
@@ -475,7 +478,7 @@ LIVRABLE : Commandes iptables
 </ol>
 ---
 
-**LIVRABLE : capture d'écran de votre ping.**
+**	![DNSpingSucceed](img/DNSpingSucceed.png)
 
 ---
 
@@ -486,7 +489,7 @@ LIVRABLE : Commandes iptables
 ---
 **Réponse**
 
-**LIVRABLE : Votre réponse ici...**
+La demande de résolution de nom faite à travers le port 53 est rejetée par le firewall. 
 
 ---
 
@@ -506,7 +509,10 @@ Commandes iptables :
 ---
 
 ```bash
-LIVRABLE : Commandes iptables
+iptables -A FORWARD -p tcp --sport 80 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 8080 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 8080 -j ACCEPT
 ```
 
 ---
@@ -518,7 +524,8 @@ Commandes iptables :
 ---
 
 ```bash
-LIVRABLE : Commandes iptables
+iptables -A FORWARD -p tcp --sport 443 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 443 -j ACCEPT
 ```
 ---
 
@@ -528,7 +535,9 @@ LIVRABLE : Commandes iptables
 </ol>
 ---
 
-**LIVRABLE : capture d'écran.**
+![wget](img/wget.png)
+
+![wget_https](img/wget_https.png)
 
 ---
 
@@ -545,7 +554,10 @@ Commandes iptables :
 ---
 
 ```bash
-LIVRABLE : Commandes iptables
+iptables -A INPUT -p tcp -s 192.168.100.3 --dport 22 -j ACCEPT
+iptables -A OUTPUT -p tcp -d 192.168.100.3 --sport 22 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 22 -d 192.168.200.3 -s 192.168.100.3 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 22 -s 192.168.200.3 -d 192.168.100.3 -j ACCEPT
 ```
 
 ---
@@ -558,7 +570,9 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 
 ---
 
-**LIVRABLE : capture d'écran de votre connexion ssh.**
+![ssh_firewall](img/ssh_firewall.png)
+
+![ssh_DMZ](img/ssh_DMZ.png)
 
 ---
 
@@ -569,7 +583,7 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 ---
 **Réponse**
 
-**LIVRABLE : Votre réponse ici...**
+Cela permet de pouvoir prendre le contrôle du serveur à distance
 
 ---
 
@@ -582,7 +596,7 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 ---
 **Réponse**
 
-**LIVRABLE : Votre réponse ici...**
+Si on fat une erreur de configuration n’importe qui pourra essayer de se connecter en SSH sur le serveur. 
 
 ---
 
