@@ -422,12 +422,12 @@ Faire une capture du ping.
 </ol>
 
 
-| De Client\_in\_LAN à | OK/KO | Commentaires et explications |
-| :---                 | :---: | :---                         |
-| Interface DMZ du FW  |       |                              |
-| Interface LAN du FW  |       |                              |
-| Client LAN           |       |                              |
-| Serveur WAN          |       |                              |
+| De Client\_in\_LAN à | OK/KO | Commentaires et explications    |
+| :------------------- | :---: | :------------------------------ |
+| Interface DMZ du FW  |  OK   | On a créé la règle précédemment |
+| Interface LAN du FW  |  KO   |                                 |
+| Client LAN           |       |                                 |
+| Serveur WAN          |       |                                 |
 
 
 | De Server\_in\_DMZ à | OK/KO | Commentaires et explications |
