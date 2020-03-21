@@ -295,7 +295,7 @@ ping 8.8.8.8
 sudo docker exec -it dmz /bin/bash 
 ---
 
-![configBase2](img/configBase2.png)
+![configBase2configBase2](configBase2configBase2img/configBase2.png)
 
 ---
 
@@ -412,7 +412,7 @@ ping 8.8.8.8
 Faire une capture du ping.
 
 ---
-<img src="/home/kurisukun/.config/Typora/typora-user-images/image-20200313151941547.png" alt="image-20200313151941547" style="zoom:150%;" />
+<img src="./img/pingGoogle.png" alt="image-20200313151941547" style="zoom:150%;" />
 
 ---
 
