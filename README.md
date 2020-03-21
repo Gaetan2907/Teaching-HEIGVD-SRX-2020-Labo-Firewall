@@ -226,7 +226,7 @@ ping 192.168.200.3
 ```
 ---
 
-![configBase](/home/gaetan/ownCloud/HEIG-VD/Semestre4/SRX/Labos/Lab02/Teaching-HEIGVD-SRX-2020-Labo-Firewall/img/configBase.png)
+![configBase](img/configBase.png)
 
 ---
 
@@ -281,7 +281,7 @@ ping 192.168.100.3
 
 ---
 
-![configDMZ](/home/gaetan/ownCloud/HEIG-VD/Semestre4/SRX/Labos/Lab02/Teaching-HEIGVD-SRX-2020-Labo-Firewall/img/configDMZ.png)
+![configDMZ](img/configDMZ.png)
 
 ---
 
@@ -295,7 +295,7 @@ ping 8.8.8.8
 
 ---
 
-![configBase2](/home/gaetan/ownCloud/HEIG-VD/Semestre4/SRX/Labos/Lab02/Teaching-HEIGVD-SRX-2020-Labo-Firewall/img/configBase2.png)
+![configBase2](img/configBase2.png)
 
 ---
 
@@ -470,7 +470,6 @@ LIVRABLE : Commandes iptables
   <li>Tester en réitérant la commande ping sur le serveur de test (Google ou autre) : 
   </li>                                  
 </ol>
-
 ---
 
 **LIVRABLE : capture d'écran de votre ping.**
@@ -481,7 +480,6 @@ LIVRABLE : Commandes iptables
   <li>Remarques (sur le message du premier ping)? 
   </li>                                  
 </ol>
-
 ---
 **Réponse**
 
@@ -525,7 +523,6 @@ LIVRABLE : Commandes iptables
   <li>Tester l’accès à ce serveur depuis le LAN utilisant utilisant wget (ne pas oublier les captures d'écran). 
   </li>                                  
 </ol>
-
 ---
 
 **LIVRABLE : capture d'écran.**
@@ -566,7 +563,6 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
   <li>Expliquer l'utilité de **ssh** sur un serveur. 
   </li>                                  
 </ol>
-
 ---
 **Réponse**
 
@@ -595,7 +591,6 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
   <li>Insérer la capture d’écran avec toutes vos règles iptables
   </li>                                  
 </ol>
-
 ---
 
 **LIVRABLE : capture d'écran avec toutes vos règles.**
