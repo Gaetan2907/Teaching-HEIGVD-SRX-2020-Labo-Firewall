@@ -259,7 +259,7 @@ PermitRootLogin yes
 
 et enregistrer et fermer le fichier en question.
 
-**ATTENTION :** Il faudra aussi définir un mot de passe pour pour les connexions ssh. Pour cela, utiliser la commande `passwd`.
+**ATTENTION :** Il faudra aussi définir un mot de passe pour pour les connexions ssh. Pour cela, utiliser la commande `passwd`. **root**
 
 Toujours dans un terminal de votre serveur, taper les commandes suivantes :
 
@@ -292,7 +292,7 @@ Par exemple :
 ```bash
 ping 8.8.8.8
 ```
-
+sudo docker exec -it dmz /bin/bash 
 ---
 
 ![configBase2](img/configBase2.png)
@@ -344,7 +344,7 @@ Une règle permet d’autoriser ou d’interdire une connexion. `iptables` met �
 
 `iptables` vous permet la configuration de pare-feux avec et sans état. **Pour ce laboratoire, vous allez utiliser le mode avec état**. 
 
-Chaque 	 doit être tapée sur une ligne séparée. Référez-vous à la théorie et appuyez-vous sur des informations trouvées sur Internet pour traduire votre tableau de règles de filtrage en commandes `iptables`. Les règles prennent effet immédiatement après avoir appuyé sur &lt;enter>\. Vous pouvez donc les tester au fur et à mesure que vous les configurez.
+Chaque règle doit être tapée sur une ligne séparée. Référez-vous à la théorie et appuyez-vous sur des informations trouvées sur Internet pour traduire votre tableau de règles de filtrage en commandes `iptables`. Les règles prennent effet immédiatement après avoir appuyé sur &lt;enter>\. Vous pouvez donc les tester au fur et à mesure que vous les configurez.
 
 ## Sauvegarde et récupération des règles
 
@@ -390,9 +390,12 @@ Commandes iptables :
 ---
 
 ```bash
-LIVRABLE : Commandes iptables
 iptables -A FORWARD -p icmp --icmp-type 8 -s 192.168.100.0/24 -d 192.168.200.0/24 -j ACCEPT 
 iptables -A FORWARD -p icmp --icmp-type 0 -s 192.168.200.0/24 -d 192.168.100.0/24 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type 8 -s 192.168.100.0/24 -o eth0  -j ACCEPT 
+iptables -A FORWARD -p icmp --icmp-type 0 -i eth0 -d 192.168.100.0/24 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type 8 -s 192.168.200.0/24 -d 192.168.100.0/24 -j ACCEPT 
+iptables -A FORWARD -p icmp --icmp-type 0 -s 192.168.100.0/24 -d 192.168.200.0/24 -j ACCEPT
 ```
 ---
 
@@ -409,7 +412,7 @@ ping 8.8.8.8
 Faire une capture du ping.
 
 ---
-**LIVRABLE : capture d'écran de votre ping vers l'Internet.**
+<img src="/home/kurisukun/.config/Typora/typora-user-images/image-20200313151941547.png" alt="image-20200313151941547" style="zoom:150%;" />
 
 ---
 
@@ -419,12 +422,12 @@ Faire une capture du ping.
 </ol>
 
 
-| De Client\_in\_LAN à | OK/KO | Commentaires et explications |
-| :---                 | :---: | :---                         |
-| Interface DMZ du FW  |       |                              |
-| Interface LAN du FW  |       |                              |
-| Client LAN           |       |                              |
-| Serveur WAN          |       |                              |
+| De Client\_in\_LAN à | OK/KO | Commentaires et explications    |
+| :------------------- | :---: | :------------------------------ |
+| Interface DMZ du FW  |  OK   | On a créé la règle précédemment |
+| Interface LAN du FW  |  KO   |                                 |
+| Client LAN           |       |                                 |
+| Serveur WAN          |       |                                 |
 
 
 | De Server\_in\_DMZ à | OK/KO | Commentaires et explications |
