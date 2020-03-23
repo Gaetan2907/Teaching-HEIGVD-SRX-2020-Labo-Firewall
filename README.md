@@ -123,15 +123,28 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 
 **LIVRABLE : Remplir le tableau**
 
-| Adresse IP source | Adresse IP destination | Type  | Port src | Port dst | Action |
-| :---------------: | :--------------------: | :---: | :------: | :------: | :----: |
-| 192.168.100.0/24  |    192.168.200.0/24    | INPUT |          |          |        |
-|                   |                        |       |          |          |        |
-|                   |                        |       |          |          |        |
-|                   |                        |       |          |          |        |
-|                   |                        |       |          |          |        |
-|                   |                        |       |          |          |        |
-|                   |                        |       |          |          |        |
+| Adresse IP source | Adresse IP destination |        Type        | Port src | Port dst | Action |
+| :---------------: | :--------------------: | :----------------: | :------: | :------: | :----: |
+|   192.168.100.3   |     192.168.100.2      |        TCP         |    *     |    22    | ACCEPT |
+|   192.168.100.2   |     192.168.100.3      |        TCP         |    22    |    *     | ACCEPT |
+| 192.168.100.0/24  |    192.168.200.0/24    | ICMP echo-request  |    -     |    -     | ACCEPT |
+| 192.168.200.0/24  |    192.168.100.0/24    | ICMP echo-response |    -     |    -     | ACCEPT |
+| 192.168.100.0/24  |          WAN           | ICMP echo-request  |    -     |    -     | ACCEPT |
+|        WAN        |    192.168.100.0/24    | ICMP echo-response |    -     |    -     | ACCEPT |
+| 192.168.200.0/24  |    192.168.100.0/24    | ICMP echo-request  |    -     |    -     | ACCEPT |
+| 192.168.100.0/24  |    192.168.200.0/24    | ICMP echo-response |    -     |    -     | ACCEPT |
+| 192.168.100.0/24  |          WAN           |        TCP         |    *     |    53    | ACCEPT |
+| 192.168.100.0/24  |          WAN           |        UDP         |    *     |    53    | ACCEPT |
+|        WAN        |    192.168.100.0/24    |        TCP         |    53    |    *     | ACCEPT |
+|        WAN        |    192.168.100.0/24    |        UDP         |    53    |    *     | ACCEPT |
+| 192.168.100.0/24  |          WAN           |        TCP         |    *     |    80    | ACCEPT |
+|        WAN        |    192.168.100.0/24    |        TCP         |    80    |    *     | ACCEPT |
+| 192.168.100.0/24  |          WAN           |        TCP         |    *     |   8080   | ACCEPT |
+|        WAN        |    192.168.100.0/24    |        TCP         |   8080   |    *     | ACCEPT |
+| 192.168.100.0/24  |          WAN           |        TCP         |   443    |    *     | ACCEPT |
+|        WAN        |    192.168.100.0/24    |        TCP         |    *     |   443    | ACCEPT |
+|   192.168.100.3   |     192.168.100.2      |        TCP         |    *     |    22    | ACCEPT |
+|   192.168.100.2   |     192.168.100.3      |        TCP         |    22    |    *     | ACCEPT |
 
 ---
 
