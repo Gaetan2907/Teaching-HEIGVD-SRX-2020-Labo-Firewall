@@ -123,15 +123,15 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 
 **LIVRABLE : Remplir le tableau**
 
-| Adresse IP source | Adresse IP destination | Type | Port src | Port dst | Action |
-| :---:             | :---:                  | :---:| :------: | :------: | :----: |
-|                   |                        |      |          |          |        |
-|                   |                        |      |          |          |        |
-|                   |                        |      |          |          |        |
-|                   |                        |      |          |          |        |
-|                   |                        |      |          |          |        |
-|                   |                        |      |          |          |        |
-|                   |                        |      |          |          |        |
+| Adresse IP source | Adresse IP destination | Type  | Port src | Port dst | Action |
+| :---------------: | :--------------------: | :---: | :------: | :------: | :----: |
+| 192.168.100.0/24  |    192.168.200.0/24    | INPUT |          |          |        |
+|                   |                        |       |          |          |        |
+|                   |                        |       |          |          |        |
+|                   |                        |       |          |          |        |
+|                   |                        |       |          |          |        |
+|                   |                        |       |          |          |        |
+|                   |                        |       |          |          |        |
 
 ---
 
@@ -292,10 +292,7 @@ Par exemple :
 ```bash
 ping 8.8.8.8
 ```
-sudo docker exec -it dmz /bin/bash 
----
-
-![configBase2configBase2](configBase2configBase2img/configBase2.png)
+![configBase2](img/configBase2.png)
 
 ---
 
@@ -464,10 +461,11 @@ Commandes iptables :
 ---
 
 ```bash
-iptables -A FORWARD -p tcp --dport 53 -j ACCEPT
-iptables -A FORWARD -p udp --dport 53 -j ACCEPT
-iptables -A FORWARD -p udp --sport 53 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 53 -j ACCEPT
+iptables -A FORWARD -p tcp --source 192.168.100.0/24 --dport 53 -j ACCEPT
+iptables -A FORWARD -p udp --source 192.168.100.0/24 --dport 53 -j ACCEPT
+iptables -A FORWARD -p tcp --destination 192.168.100.0/24 --sport 53 -j ACCEPT
+iptables -A FORWARD -p udp --destination 192.168.100.0/24 --sport 53 -j ACCEPT
+
 ```
 
 ---
@@ -509,10 +507,10 @@ Commandes iptables :
 ---
 
 ```bash
-iptables -A FORWARD -p tcp --sport 80 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 80 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 8080 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 8080 -j ACCEPT
+iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 80 -j ACCEPT
+iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 80 -j ACCEPT
+iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 8080 -j ACCEPT
+iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 8080 -j ACCEPT
 ```
 
 ---
@@ -524,8 +522,8 @@ Commandes iptables :
 ---
 
 ```bash
-iptables -A FORWARD -p tcp --sport 443 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 443 -j ACCEPT
+iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 443 -j ACCEPT
+iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 443 -j ACCEPT
 ```
 ---
 
@@ -610,6 +608,6 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
 </ol>
 ---
 
-**LIVRABLE : capture d'écran avec toutes vos règles.**
+![ssh_DMZ](img/iptables-L.png)
 
 ---
