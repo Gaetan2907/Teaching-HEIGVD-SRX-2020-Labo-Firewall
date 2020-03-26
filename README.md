@@ -143,6 +143,8 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 |        WAN        |    192.168.100.0/24    |        TCP         |   8080   |    *     | ACCEPT |
 | 192.168.100.0/24  |          WAN           |        TCP         |   443    |    *     | ACCEPT |
 |        WAN        |    192.168.100.0/24    |        TCP         |    *     |   443    | ACCEPT |
+|   192.168.200.3   |       WAN + LAN        |        TCP         |    *     |    80    | ACCEPT |
+|     WAN + LAN     |     192.168.200.3      |        TCP         |    80    |    *     | ACCEPT |
 |   192.168.100.3   |     192.168.100.2      |        TCP         |    *     |    22    | ACCEPT |
 |   192.168.100.2   |     192.168.100.3      |        TCP         |    22    |    *     | ACCEPT |
 
@@ -524,6 +526,8 @@ iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 80 -j ACCEPT
 iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 80 -j ACCEPT
 iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 8080 -j ACCEPT
 iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 8080 -j ACCEPT
+iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 443 -j ACCEPT
+iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 443 -j ACCEPT
 ```
 
 ---
@@ -535,8 +539,8 @@ Commandes iptables :
 ---
 
 ```bash
-iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 443 -j ACCEPT
-iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 443 -j ACCEPT
+iptables -A FORWARD -p tcp -s 192.168.200.3 --dport 80 -j ACCEPT 
+iptables -A FORWARD -p tcp -d 192.168.200.3 --sport 80 -j ACCEPT 
 ```
 ---
 
@@ -547,8 +551,6 @@ iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 443 -j ACCEPT
 ---
 
 ![wget](img/wget.png)
-
-![wget_https](img/wget_https.png)
 
 ---
 
