@@ -411,6 +411,22 @@ iptables -A FORWARD -p icmp --icmp-type 0 -s 192.168.100.0/24 -d 192.168.200.0/2
 ```
 ---
 
+**condition 8** 
+
+Commandes iptables : 
+
+------
+
+```
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP
+```
+
+------
+
+
+
 ### Questions
 
 <ol type="a" start="2">
@@ -476,10 +492,10 @@ Commandes iptables :
 ---
 
 ```bash
-iptables -A FORWARD -p tcp --source 192.168.100.0/24 --dport 53 -j ACCEPT
-iptables -A FORWARD -p udp --source 192.168.100.0/24 --dport 53 -j ACCEPT
-iptables -A FORWARD -p tcp --destination 192.168.100.0/24 --sport 53 -j ACCEPT
-iptables -A FORWARD -p udp --destination 192.168.100.0/24 --sport 53 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate NEW,ESTABLISHED -p tcp --source 192.168.100.0/24 --dport 53 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate NEW,ESTABLISHED -p udp --source 192.168.100.0/24 --dport 53 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate ESTABLISHED -p tcp --destination 192.168.100.0/24 --sport 53 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate ESTABLISHED -p udp --destination 192.168.100.0/24 --sport 53 -j ACCEPT
 
 ```
 
@@ -522,12 +538,12 @@ Commandes iptables :
 ---
 
 ```bash
-iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 80 -j ACCEPT
-iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 80 -j ACCEPT
-iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 8080 -j ACCEPT
-iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 8080 -j ACCEPT
-iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 443 -j ACCEPT
-iptables -A FORWARD -p tcp -d 192.168.100.0/24 --sport 443 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate NEW,ESTABLISHED -p tcp -s 192.168.100.0/24 --dport 80 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate ESTABLISHED  -p tcp -d 192.168.100.0/24 --sport 80 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate NEW,ESTABLISHED -p tcp -s 192.168.100.0/24 --dport 8080 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate ESTABLISHED -p tcp -d 192.168.100.0/24 --sport 8080 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate NEW,ESTABLISHED -p tcp -s 192.168.100.0/24 --dport 443 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate ESTABLISHED -p tcp -d 192.168.100.0/24 --sport 443 -j ACCEPT
 ```
 
 ---
@@ -539,8 +555,8 @@ Commandes iptables :
 ---
 
 ```bash
-iptables -A FORWARD -p tcp -s 192.168.200.3 --dport 80 -j ACCEPT 
-iptables -A FORWARD -p tcp -d 192.168.200.3 --sport 80 -j ACCEPT 
+iptables -A FORWARD -m conntrack --ctstate NEW,ESTABLISHED -p tcp -s 192.168.200.3 --dport 80 -j ACCEPT 
+iptables -A FORWARD -m conntrack --ctstate ESTABLISHED -p tcp -d 192.168.200.3 --sport 80 -j ACCEPT 
 ```
 ---
 
@@ -567,10 +583,10 @@ Commandes iptables :
 ---
 
 ```bash
-iptables -A INPUT -p tcp -s 192.168.100.3 --dport 22 -j ACCEPT
-iptables -A OUTPUT -p tcp -d 192.168.100.3 --sport 22 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 22 -d 192.168.200.3 -s 192.168.100.3 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 22 -s 192.168.200.3 -d 192.168.100.3 -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate NEW,ESTABLISHED -p tcp -s 192.168.100.3 --dport 22 -j ACCEPT
+iptables -A OUTPUT -m conntrack --ctstate ESTABLISHED -p tcp -d 192.168.100.3 --sport 22 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate NEW,ESTABLISHED -p tcp --dport 22 -d 192.168.200.3 -s 192.168.100.3 -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate ESTABLISHED -p tcp --sport 22 -s 192.168.200.3 -d 192.168.100.3 -j ACCEPT
 ```
 
 ---
@@ -623,6 +639,6 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
 </ol>
 ---
 
-![ssh_DMZ](img/iptables-L.png)
+![ssh_DMZ](img/iptables-LV2.png)
 
 ---
